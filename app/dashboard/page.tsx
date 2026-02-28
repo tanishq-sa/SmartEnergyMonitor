@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import Navbar from "@/components/Navbar";
+import { AnimatedBackground } from "@/components/landing/AnimatedBackground";
+import { Navbar } from "@/components/landing/Navbar";
 import EnergyForm from "@/components/EnergyForm";
 import EnergyCharts from "@/components/EnergyCharts";
 import AlertBox from "@/components/AlertBox";
 import type { EnergyEntry } from "@/lib/analytics";
 import { DEFAULT_THRESHOLD, getThresholdAlerts, compareTrend, detectAnomalies } from "@/lib/analytics";
+import { GlowButton } from "@/components/ui/GlowButton";
 
 type UserSettings = { threshold: number };
 
@@ -122,15 +124,16 @@ export default function DashboardPage() {
   const anomalies = detectAnomalies(entries);
 
   return (
-    <div className="min-h-screen bg-black">
+    <>
+      <AnimatedBackground />
       <Navbar />
-      <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+      <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pt-24 pb-16">
         <header className="mb-10">
-          <h1 className="text-3xl font-semibold tracking-tight text-white">
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-50">
             Dashboard
           </h1>
-          <p className="mt-1 text-gray-500">
-            Track usage, set your threshold, and view insights.
+          <p className="mt-2 text-base text-slate-400">
+            Log readings, tune your threshold, and monitor trends.
           </p>
         </header>
 
@@ -145,31 +148,40 @@ export default function DashboardPage() {
         </section>
 
         <section className="mb-10">
-          <div className="rounded-xl border border-gray-800/90 bg-gray-900/40 p-5 shadow-lg shadow-black/10 ring-1 ring-white/5 transition hover:border-gray-700/80">
-            <h3 className="mb-1 text-xs font-medium uppercase tracking-wider text-gray-500">
+          <div className="glass rounded-[20px] border border-slate-700/30 p-6 sm:p-7 hover:border-[#00ff88]/30 hover:shadow-[0_0_40px_rgba(0,255,136,0.08)] transition-all duration-300">
+            <h3 className="mb-1 text-sm font-semibold uppercase tracking-wider text-slate-500">
               Settings
             </h3>
-            <p className="mb-4 text-sm text-gray-400">
-              Daily alert threshold (units). Alerts when a day&apos;s usage exceeds this value.
+            <p className="mb-5 text-base text-slate-400">
+              Set your daily alert threshold (units). We&apos;ll flag days that exceed it.
             </p>
-            <div className="flex flex-wrap items-center gap-4">
-              <input
-                id="threshold"
-                type="number"
-                min={1}
-                max={10000}
-                value={thresholdInput}
-                onChange={(e) => setThresholdInput(e.target.value)}
-                className="h-11 w-24 rounded-lg border border-gray-700 bg-black/60 px-3 py-2 text-sm text-white outline-none transition placeholder:text-gray-500 focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20"
-              />
-              <button
-                type="button"
+            <div className="flex flex-wrap items-end gap-4">
+              <div>
+                <label
+                  htmlFor="threshold"
+                  className="mb-2 block text-sm font-medium text-slate-400"
+                >
+                  Daily threshold
+                </label>
+                <input
+                  id="threshold"
+                  type="number"
+                  min={1}
+                  max={10000}
+                  value={thresholdInput}
+                  onChange={(e) => setThresholdInput(e.target.value)}
+                  className="h-11 w-28 rounded-xl border border-slate-700/50 bg-slate-900/50 px-4 text-base text-slate-50 outline-none transition focus:border-[#00ff88]/40 focus:ring-2 focus:ring-[#00ff88]/10"
+                />
+              </div>
+              <GlowButton
                 onClick={handleSaveSettings}
-                disabled={settingsSaving}
-                className="h-11 rounded-lg bg-white px-5 text-sm font-medium text-black shadow-sm transition hover:bg-gray-100 disabled:opacity-50"
+                type="button"
+                size="sm"
+                variant="primary"
+                className={settingsSaving ? "opacity-70 pointer-events-none" : ""}
               >
                 {settingsSaving ? "Saving…" : "Save"}
-              </button>
+              </GlowButton>
             </div>
           </div>
         </section>
@@ -177,8 +189,8 @@ export default function DashboardPage() {
         <>
           {thresholdAlerts.length > 0 && (
             <section className="mb-8">
-              <h3 className="mb-3 text-xs font-medium uppercase tracking-wider text-gray-500">
-                Threshold alerts · limit {threshold} units
+              <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-500">
+                Threshold alerts · limit {threshold} units/day
               </h3>
               <div className="space-y-3">
                 {thresholdAlerts.map((alert) => (
@@ -206,7 +218,7 @@ export default function DashboardPage() {
 
           {anomalies.length > 0 && (
             <section className="mb-8">
-              <h3 className="mb-3 text-xs font-medium uppercase tracking-wider text-gray-500">
+              <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-500">
                 Anomaly insights
               </h3>
               <div className="space-y-3">
@@ -226,6 +238,6 @@ export default function DashboardPage() {
           <EnergyCharts entries={entries} />
         </>
       </main>
-    </div>
+    </>
   );
 }
