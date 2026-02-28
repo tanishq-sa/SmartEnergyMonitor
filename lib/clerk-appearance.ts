@@ -1,45 +1,50 @@
 /**
- * Shared Clerk appearance for sign-in/sign-up.
- * Fixes social buttons (Google, GitHub, Apple) and form fields on dark background.
+ * Premium Clerk appearance for sign-in and sign-up.
+ * Matches the SmartEnergy Monitor theme: dark #0f172a, neon green #00ff88, electric blue #00c3ff
  */
+
 export const clerkAppearance = {
   variables: {
-    colorBackground: "#000",
-    colorInput: "#171717",
-    colorInputForeground: "#fff",
-    colorForeground: "#e5e7eb",
-    colorMutedForeground: "#9ca3af",
-    colorPrimary: "#fff",
-    colorPrimaryForeground: "#000",
-    colorBorder: "#374151",
-    // Light neutral so social buttons (GitHub, Google, Apple) get light bg and dark icons are visible
-    colorNeutral: "#f3f4f6",
-    colorMuted: "#1f2937",
-    borderRadius: "0.5rem",
+    colorBackground: "transparent",
+    colorInput: "rgba(15, 23, 42, 0.9)",
+    colorInputForeground: "#f8fafc",
+    colorForeground: "#f8fafc",
+    colorMutedForeground: "#94a3b8",
+    colorPrimary: "#00ff88",
+    colorPrimaryForeground: "#0f172a",
+    colorBorder: "rgba(0, 255, 136, 0.25)",
+    colorNeutral: "rgba(15, 23, 42, 0.9)",
+    colorMuted: "rgba(51, 65, 85, 0.5)",
+    borderRadius: "1rem",
   },
   elements: {
-    rootBox: "mx-auto",
-    card: "border border-gray-800 bg-black shadow-lg",
-    // Social buttons: light background so Google/GitHub/Apple icons are visible
-    socialButtonsBlockButton:
-      "!bg-gray-100 !text-gray-900 border border-gray-300 hover:!bg-gray-200 [&_svg]:!fill-gray-900 [&_svg]:!text-gray-900",
-    socialButtonsBlockButtonText: "!text-gray-900 font-medium",
-    socialButtonsIconButton:
-      "!bg-gray-100 border border-gray-300 hover:!bg-gray-200 [&_svg]:!fill-gray-900",
-    // Form inputs: email, phone – dark field, white text
+    rootBox: "w-full",
+    card: "bg-transparent shadow-none border-none p-0",
+    cardBox: "w-full",
+    headerTitle: "!text-slate-50 !font-semibold !text-xl",
+    headerSubtitle: "!text-slate-400 !text-sm",
+    dividerLine: "!bg-slate-700",
+    dividerText: "!text-slate-500 !text-sm",
+    formFieldLabel: "!text-slate-300 !font-medium",
     formFieldInput:
-      "!bg-[#171717] !text-white border border-gray-700 focus:!border-gray-500 placeholder:!text-gray-500",
-    formFieldLabel: "!text-gray-300",
-    formFieldInputShowPasswordButton: "!text-gray-400 hover:!text-white",
-    // Primary button (Continue / Sign in)
+      "!bg-slate-900/80 !text-slate-50 border border-slate-600/50 focus:!border-[#00ff88] focus:!ring-2 focus:!ring-[#00ff88]/20 !rounded-xl !h-12",
+    formFieldInputShowPasswordButton:
+      "!text-slate-400 hover:!text-[#00ff88] transition-colors",
+    formFieldAction: "!text-slate-400 hover:!text-[#00ff88] transition-colors",
     formButtonPrimary:
-      "!bg-white !text-black border border-gray-400 hover:!bg-gray-100",
-    formFieldAction: "!text-gray-400",
-    footerActionLink: "!text-gray-400 hover:!text-white",
-    dividerLine: "!bg-gray-700",
-    dividerText: "!text-gray-500",
-    headerTitle: "!text-white",
-    headerSubtitle: "!text-gray-400",
-    alert: "!bg-gray-900 border border-gray-700 !text-gray-300",
+      "!bg-[#00ff88] !text-[#0f172a] hover:!bg-[#00ff88]/90 hover:!shadow-[0_0_30px_rgba(0,255,136,0.4)] !rounded-xl !font-semibold !h-12 transition-all duration-300",
+    footerActionLink:
+      "!text-[#00ff88] hover:!text-[#00ff88]/80 transition-colors",
+    footerAction: "!text-slate-400",
+    footerActionText: "!text-slate-400",
+    alert: "!bg-slate-900/80 border border-slate-600/50 !text-slate-300 !rounded-xl",
+    identityPreviewEditButton:
+      "!text-[#00ff88] hover:!text-[#00ff88]/80",
+    // Social buttons: subtle glass style, icons visible
+    socialButtonsBlockButton:
+      "!bg-slate-800/60 !text-slate-200 border border-slate-600/50 hover:!border-[#00ff88]/30 hover:!bg-slate-800/80 !rounded-xl transition-all [&_svg]:!fill-current",
+    socialButtonsBlockButtonText: "!text-slate-200 font-medium",
+    socialButtonsIconButton:
+      "!bg-slate-800/60 border border-slate-600/50 hover:!border-[#00ff88]/30 !rounded-xl [&_svg]:!fill-current",
   },
 };
