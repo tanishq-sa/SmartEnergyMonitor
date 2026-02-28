@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { Zap, Play } from "lucide-react";
+import { Zap } from "lucide-react";
 import { GlowButton } from "@/components/ui/GlowButton";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 
@@ -70,9 +69,6 @@ export function Hero() {
           <SignedOut>
             <GlowButton href="/sign-up" variant="primary" size="lg">
               Get Started
-            </GlowButton>
-            <GlowButton href="/sign-in" variant="secondary" size="lg" icon={Play}>
-              Live Demo
             </GlowButton>
           </SignedOut>
           <SignedIn>
