@@ -1,4 +1,6 @@
 const COLLECTION = "energyEntries";
+const SETTINGS_COLLECTION = "userSettings";
+const DEFAULT_THRESHOLD = 50;
 
 async function getFirestoreDb() {
   const { getApps, initializeApp, cert } = await import("firebase-admin/app");
@@ -59,4 +61,32 @@ export async function addEntryForUser(
   const doc = await docRef.get();
   const data = doc.data()!;
   return { date: data.date as string, units: data.units as number };
+}
+
+export type UserSettings = {
+  threshold: number;
+};
+
+export async function getSettingsForUser(userId: string): Promise<UserSettings> {
+  const db = await getFirestoreDb();
+  const doc = await db.collection(SETTINGS_COLLECTION).doc(userId).get();
+  if (!doc.exists) {
+    return { threshold: DEFAULT_THRESHOLD };
+  }
+  const data = doc.data()!;
+  return {
+    threshold: typeof data.threshold === "number" ? data.threshold : DEFAULT_THRESHOLD,
+  };
+}
+
+export async function setSettingsForUser(
+  userId: string,
+  settings: Partial<UserSettings>
+): Promise<UserSettings> {
+  const db = await getFirestoreDb();
+  const ref = db.collection(SETTINGS_COLLECTION).doc(userId);
+  const current = await getSettingsForUser(userId);
+  const next = { ...current, ...settings };
+  await ref.set(next, { merge: true });
+  return next;
 }

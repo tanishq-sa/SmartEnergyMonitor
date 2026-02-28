@@ -70,12 +70,45 @@ export function detectAnomalies(entries: EnergyEntry[]): Anomaly[] {
   return anomalies;
 }
 
-export const THRESHOLD = 50;
+export const DEFAULT_THRESHOLD = 50;
+
+export type ThresholdAlert = {
+  date: string;
+  units: number;
+  threshold: number;
+  reason: string;
+};
 
 export function getHighConsumptionEntries(
-  entries: EnergyEntry[]
+  entries: EnergyEntry[],
+  threshold: number = DEFAULT_THRESHOLD
 ): EnergyEntry[] {
-  return entries.filter((e) => e.units > THRESHOLD);
+  return entries.filter((e) => e.units > threshold);
+}
+
+/** Returns threshold alerts with a clear reason for each. */
+export function getThresholdAlerts(
+  entries: EnergyEntry[],
+  threshold: number = DEFAULT_THRESHOLD
+): ThresholdAlert[] {
+  return entries
+    .filter((e) => e.units > threshold)
+    .map((e) => {
+      const over = e.units - threshold;
+      const pct = Math.round((over / threshold) * 100);
+      const reason =
+        pct >= 100
+          ? `Exceeded daily threshold (${threshold} units) by ${over} units (${pct}% over). Consider checking for leaks or heavy appliances.`
+          : pct >= 50
+            ? `Exceeded daily threshold (${threshold} units) by ${over} units (${pct}% over).`
+            : `Exceeded daily threshold of ${threshold} units by ${over} units.`;
+      return {
+        date: e.date,
+        units: e.units,
+        threshold,
+        reason,
+      };
+    });
 }
 
 const RATE_PER_UNIT = 6;

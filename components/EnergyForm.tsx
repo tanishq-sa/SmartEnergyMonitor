@@ -35,16 +35,19 @@ export default function EnergyForm({ onAdd, disabled }: EnergyFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-lg border border-gray-800 bg-black/50 p-4 shadow-sm transition-shadow hover:shadow-md"
+      className="rounded-xl border border-gray-800/90 bg-gray-900/40 p-5 shadow-lg shadow-black/10 ring-1 ring-white/5 transition hover:border-gray-700/80"
     >
-      <h3 className="mb-3 text-sm font-medium text-white">
+      <h3 className="mb-1 text-xs font-medium uppercase tracking-wider text-gray-500">
         Add energy reading
       </h3>
-      <div className="flex flex-wrap items-end gap-3">
+      <p className="mb-4 text-sm text-gray-400">
+        Log a new meter reading by date and units consumed.
+      </p>
+      <div className="flex flex-wrap items-end gap-4">
         <div>
           <label
             htmlFor="energy-date"
-            className="mb-1 block text-xs text-gray-400"
+            className="mb-1.5 block text-xs font-medium text-gray-400"
           >
             Date
           </label>
@@ -54,13 +57,13 @@ export default function EnergyForm({ onAdd, disabled }: EnergyFormProps) {
             value={date}
             onChange={(e) => setDate(e.target.value)}
             disabled={disabled}
-            className="w-full rounded border border-gray-700 bg-black px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-gray-600 focus:outline-none focus:ring-1 focus:ring-gray-600 disabled:opacity-50"
+            className="h-11 min-w-[140px] rounded-lg border border-gray-700 bg-black/60 px-3 py-2 text-sm text-white outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 disabled:opacity-50"
           />
         </div>
         <div>
           <label
             htmlFor="energy-units"
-            className="mb-1 block text-xs text-gray-400"
+            className="mb-1.5 block text-xs font-medium text-gray-400"
           >
             Units consumed
           </label>
@@ -73,19 +76,19 @@ export default function EnergyForm({ onAdd, disabled }: EnergyFormProps) {
             value={units}
             onChange={(e) => setUnits(e.target.value)}
             disabled={disabled}
-            className="w-32 rounded border border-gray-700 bg-black px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-gray-600 focus:outline-none focus:ring-1 focus:ring-gray-600 disabled:opacity-50"
+            className="h-11 w-32 rounded-lg border border-gray-700 bg-black/60 px-3 py-2 text-sm text-white placeholder:text-gray-500 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 disabled:opacity-50"
           />
         </div>
         <button
           type="submit"
           disabled={disabled}
-          className="rounded border border-gray-600 bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="h-11 rounded-lg bg-white px-5 text-sm font-medium text-black shadow-sm transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
         >
           Add
         </button>
       </div>
       {error && (
-        <p className="mt-2 text-xs text-amber-400">{error}</p>
+        <p className="mt-3 text-xs text-amber-400">{error}</p>
       )}
     </form>
   );
