@@ -71,6 +71,7 @@ export function detectAnomalies(entries: EnergyEntry[]): Anomaly[] {
 }
 
 export const DEFAULT_THRESHOLD = 50;
+export const DEFAULT_UNIT_PRICE = 6;
 
 export type ThresholdAlert = {
   date: string;
@@ -111,10 +112,11 @@ export function getThresholdAlerts(
     });
 }
 
-const RATE_PER_UNIT = 6;
-
-export function projectedMonthlyBill(entries: EnergyEntry[]): number {
+export function projectedMonthlyBill(
+  entries: EnergyEntry[],
+  unitPrice: number = DEFAULT_UNIT_PRICE
+): number {
   if (entries.length === 0) return 0;
   const avgDaily = calculateAverage(entries);
-  return Math.round(avgDaily * 30 * RATE_PER_UNIT);
+  return Math.round(avgDaily * 30 * unitPrice);
 }

@@ -12,14 +12,14 @@ export function CTASection() {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="glass rounded-[20px] border border-[#00ff88]/20 p-12 sm:p-16 text-center relative overflow-hidden"
+          className="glass rounded-[20px] border border-[#facc15]/35 p-12 sm:p-16 text-center relative overflow-hidden"
         >
           {/* Glow behind */}
           <div
             className="absolute inset-0 opacity-20"
             style={{
               background:
-                "radial-gradient(ellipse at center, rgba(0,255,136,0.15) 0%, transparent 70%)",
+                "radial-gradient(ellipse at center, rgba(250,204,21,0.22) 0%, transparent 70%)",
             }}
           />
           <div className="relative">

@@ -31,9 +31,9 @@ export function Hero() {
         {/* Badge */}
         <motion.div
           variants={item}
-          className="inline-flex items-center gap-2 rounded-full glass border border-[#00ff88]/20 px-4 py-2 mb-8"
+          className="inline-flex items-center gap-2 rounded-full glass border border-[#facc15]/40 px-4 py-2 mb-8"
         >
-          <Zap className="w-4 h-4 text-[#00ff88]" />
+          <Zap className="w-4 h-4 text-[#facc15]" />
           <span className="text-sm font-medium text-slate-300">
             Smart Energy Tracking
           </span>
@@ -45,7 +45,7 @@ export function Hero() {
           className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.1]"
         >
           <span className="text-slate-50">Monitor. </span>
-          <span className="bg-gradient-to-r from-[#00ff88] to-[#00c3ff] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#facc15] to-[#f97316] bg-clip-text text-transparent">
             Optimize.
           </span>
           <br />
@@ -87,17 +87,17 @@ export function Hero() {
           variants={item}
           className="mt-16 relative"
         >
-          <div className="glass rounded-[20px] border border-[#00ff88]/20 p-2 sm:p-4 shadow-[0_0_60px_rgba(0,255,136,0.1)]">
+          <div className="glass rounded-[20px] border border-[#facc15]/35 p-2 sm:p-4 shadow-[0_0_60px_rgba(250,204,21,0.18)]">
             {/* Mock chart bars */}
             <div className="h-48 sm:h-64 rounded-xl bg-slate-800/50 flex items-end justify-around gap-2 p-4">
               {[40, 65, 45, 80, 55, 70, 50].map((h, i) => (
                 <motion.div
                   key={i}
-                  className="flex-1 rounded-t-lg bg-gradient-to-t from-[#00ff88]/30 to-[#00c3ff]/30 min-w-[24px] max-w-[48px]"
+                  className="flex-1 rounded-t-lg bg-gradient-to-t from-[#facc15]/40 to-[#f97316]/40 min-w-[24px] max-w-[48px]"
                   initial={{ height: 0 }}
                   animate={{ height: `${h}%` }}
                   transition={{ delay: 0.8 + i * 0.1, duration: 0.6 }}
-                  style={{ boxShadow: "0 0 20px rgba(0,255,136,0.2)" }}
+                  style={{ boxShadow: "0 0 20px rgba(250,204,21,0.35)" }}
                 />
               ))}
             </div>
@@ -114,7 +114,7 @@ export function Hero() {
           {/* Glow behind mockup */}
           <div
             className="absolute -inset-4 -z-10 rounded-3xl opacity-30 blur-3xl"
-            style={{ background: "linear-gradient(135deg, #00ff88 0%, #00c3ff 100%)" }}
+            style={{ background: "linear-gradient(135deg, #facc15 0%, #f97316 100%)" }}
           />
         </motion.div>
       </motion.div>
