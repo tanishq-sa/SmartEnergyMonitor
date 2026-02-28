@@ -2,25 +2,30 @@
 
 type AlertBoxProps = {
   message: string;
+  reason?: string;
   variant?: "warning" | "info" | "success";
 };
 
 export default function AlertBox({
   message,
+  reason,
   variant = "warning",
 }: AlertBoxProps) {
-  const border =
+  const styles =
     variant === "warning"
-      ? "border-amber-500/50"
+      ? "border-l-4 border-l-amber-500/80 border border-gray-800/90 bg-amber-950/20"
       : variant === "success"
-        ? "border-emerald-500/50"
-        : "border-gray-600";
+        ? "border-l-4 border-l-emerald-500/80 border border-gray-800/90 bg-emerald-950/20"
+        : "border-l-4 border-l-gray-500/80 border border-gray-800/90 bg-gray-900/40";
 
   return (
     <div
-      className={`rounded-lg border bg-black/50 px-4 py-3 shadow-sm transition-shadow hover:shadow-md ${border}`}
+      className={`rounded-xl px-4 py-3.5 shadow-sm ring-1 ring-white/5 transition hover:shadow-md ${styles}`}
     >
-      <p className="text-sm text-gray-300">{message}</p>
+      <p className="text-sm font-medium text-gray-200">{message}</p>
+      {reason && (
+        <p className="mt-2 text-xs leading-relaxed text-gray-400">{reason}</p>
+      )}
     </div>
   );
 }
