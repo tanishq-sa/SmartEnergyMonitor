@@ -1,26 +1,51 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* Clerk auth pages: ensure variables for dark theme */
+.clerk-auth-page {
+  --clerk-color-background: #000;
+  --clerk-color-input: #171717;
+  --clerk-color-input-foreground: #fff;
+  --clerk-color-foreground: #e5e7eb;
+  --clerk-color-primary: #fff;
+  --clerk-color-primary-foreground: #000;
+  --clerk-color-border: #374151;
+}
+
+/* Social provider buttons (Google, GitHub, Apple): light bg so dark icons (e.g. GitHub) are visible */
+.clerk-auth-page button[type="button"],
+.clerk-auth-page a[role="button"] {
+  background: #f3f4f6 !important;
+  color: #111827 !important;
+  border: 1px solid #d1d5db !important;
+}
+
+.clerk-auth-page button[type="button"]:hover,
+.clerk-auth-page a[role="button"]:hover {
+  background: #e5e7eb !important;
+  border-color: #9ca3af !important;
+}
+
+.clerk-auth-page button[type="button"] span,
+.clerk-auth-page button[type="button"] svg,
+.clerk-auth-page a[role="button"] span,
+.clerk-auth-page a[role="button"] svg {
+  color: #111827 !important;
+  fill: #111827 !important;
 }

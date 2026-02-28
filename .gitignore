@@ -10,3 +10,10 @@ logs
 yarn-error.log
 npm-debug.log
 .env
+.env.local
+.env*.local
+# clerk configuration (can include secrets)
+/.clerk/
+# Firebase service account key (never commit)
+firebase-service-account.json
+*-firebase-adminsdk-*.json
