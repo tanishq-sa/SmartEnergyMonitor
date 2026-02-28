@@ -31,6 +31,7 @@ Copy `.env.example` to `.env.local` and fill in:
 | `CLERK_SECRET_KEY` | Clerk secret key |
 | Firebase client (optional) | `NEXT_PUBLIC_FIREBASE_*` – web app config from Firebase Console → Project Settings |
 | **Firebase server** (for saving data) | See **Firebase service account** below |
+| `GEMINI_API_KEY` | API key for Google Gemini (used by the Optimizer assistant chat) |
 
 **Auth (Clerk):** Sign in/sign up and **Dashboard** will be protected.
 

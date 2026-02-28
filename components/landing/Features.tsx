@@ -14,26 +14,30 @@ const features = [
   {
     icon: Activity,
     title: "Real-time Monitoring",
-    description: "Track energy consumption live across all your devices. Instant updates and detailed breakdowns.",
-    glow: "green" as const,
+    description:
+      "Track energy consumption live across all your devices. Instant updates and detailed breakdowns.",
+    glow: "yellow" as const,
   },
   {
     icon: Brain,
     title: "AI Energy Insights",
-    description: "Get intelligent recommendations to reduce usage. Anomaly detection and smart alerts.",
-    glow: "blue" as const,
+    description:
+      "Get intelligent recommendations to reduce usage. Anomaly detection and smart alerts.",
+    glow: "yellow" as const,
   },
   {
     icon: DollarSign,
     title: "Cost Tracking",
-    description: "Monitor your energy spend in real-time. Set budgets and get notified when thresholds are exceeded.",
-    glow: "green" as const,
+    description:
+      "Monitor your energy spend in real-time. Set budgets and get notified when thresholds are exceeded.",
+    glow: "yellow" as const,
   },
   {
     icon: Leaf,
     title: "Carbon Footprint Analytics",
-    description: "Measure your environmental impact. Track CO2 savings and contribute to sustainability goals.",
-    glow: "blue" as const,
+    description:
+      "Measure your environmental impact. Track CO2 savings and contribute to sustainability goals.",
+    glow: "yellow" as const,
   },
 ];
 
@@ -49,7 +53,7 @@ export function Features() {
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-50">
             Everything you need to{" "}
-            <span className="bg-gradient-to-r from-[#00ff88] to-[#00c3ff] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#facc15] to-[#f97316] bg-clip-text text-transparent">
               save energy
             </span>
           </h2>
@@ -78,7 +82,7 @@ function FeatureCard({
   icon: LucideIcon;
   title: string;
   description: string;
-  glow: "green" | "blue";
+  glow: "yellow";
   index: number;
 }) {
   return (
@@ -91,11 +95,7 @@ function FeatureCard({
       <GlassCard glow={glow} hover>
         <div className="flex flex-col h-full">
           <div
-            className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${
-              glow === "green"
-                ? "bg-[#00ff88]/10 text-[#00ff88] border border-[#00ff88]/20"
-                : "bg-[#00c3ff]/10 text-[#00c3ff] border border-[#00c3ff]/20"
-            }`}
+            className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-[#facc15]/12 text-[#facc15] border border-[#facc15]/40"
           >
             <Icon className="w-6 h-6" />
           </div>
