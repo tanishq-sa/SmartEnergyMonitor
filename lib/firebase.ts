@@ -1,4 +1,4 @@
-import { DEFAULT_THRESHOLD, DEFAULT_UNIT_PRICE } from "@/lib/analytics";
+import { DEFAULT_THRESHOLD, DEFAULT_UNIT_PRICE } from "./analytics";
 
 const COLLECTION = "energyEntries";
 const SETTINGS_COLLECTION = "userSettings";

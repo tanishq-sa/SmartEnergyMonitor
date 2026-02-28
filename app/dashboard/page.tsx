@@ -15,6 +15,7 @@ import {
   detectAnomalies,
 } from "@/lib/analytics";
 import { GlowButton } from "@/components/ui/GlowButton";
+import { OptimizerChat } from "@/components/OptimizerChat";
 
 type UserSettings = { threshold: number; unitPrice: number };
 
@@ -151,6 +152,13 @@ export default function DashboardPage() {
   const trend = compareTrend(entries);
   const anomalies = detectAnomalies(entries);
 
+  // Use live unit price input for charts when valid, fall back to saved settings
+  const parsedUnitPrice = parseFloat(unitPriceInput);
+  const unitPriceForChart =
+    !Number.isNaN(parsedUnitPrice) && parsedUnitPrice > 0
+      ? parsedUnitPrice
+      : settings.unitPrice ?? DEFAULT_UNIT_PRICE;
+
   const handleDownloadCsv = useCallback(() => {
     if (!entries.length) {
       setError("No entries to download yet.");
@@ -262,6 +270,15 @@ export default function DashboardPage() {
           </div>
         )}
 
+        {/* Charts first */}
+        <section className="mb-10">
+          <EnergyCharts
+            entries={entries}
+            unitPrice={unitPriceForChart}
+          />
+        </section>
+
+        {/* Data entry */}
         <section className="mb-10">
           <EnergyForm onAdd={handleAdd} />
         </section>
@@ -341,7 +358,14 @@ export default function DashboardPage() {
                   min={0.01}
                   step={0.01}
                   value={unitPriceInput}
-                  onChange={(e) => setUnitPriceInput(e.target.value)}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setUnitPriceInput(v);
+                    const parsed = parseFloat(v);
+                    if (!Number.isNaN(parsed) && parsed > 0) {
+                      setSettings((prev) => ({ ...prev, unitPrice: parsed }));
+                    }
+                  }}
                   className="h-11 w-32 rounded-xl border border-slate-700/50 bg-slate-900/50 px-4 text-base text-slate-50 outline-none transition focus:border-[#facc15]/40 focus:ring-2 focus:ring-[#facc15]/10"
                 />
               </div>
@@ -358,6 +382,7 @@ export default function DashboardPage() {
           </div>
         </section>
 
+        {/* Insights at the bottom */}
         <>
           {thresholdAlerts.length > 0 && (
             <section className="mb-8">
@@ -406,8 +431,13 @@ export default function DashboardPage() {
               </div>
             </section>
           )}
-
-          <EnergyCharts entries={entries} unitPrice={settings.unitPrice ?? DEFAULT_UNIT_PRICE} />
+          <OptimizerChat
+            entries={entries}
+            threshold={threshold}
+            unitPrice={unitPriceForChart}
+            trend={trend}
+            anomalies={anomalies}
+          />
         </>
       </main>
     </>

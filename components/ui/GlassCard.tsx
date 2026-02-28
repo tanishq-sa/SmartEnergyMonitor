@@ -5,21 +5,20 @@ import { motion } from "framer-motion";
 interface GlassCardProps {
   children: React.ReactNode;
   className?: string;
-  glow?: "green" | "blue" | "both" | "none";
+  glow?: "yellow" | "none";
   hover?: boolean;
 }
 
 const glowStyles = {
-  green: "border-[#00ff88]/20 hover:border-[#00ff88]/40 hover:shadow-[0_0_30px_rgba(0,255,136,0.15)]",
-  blue: "border-[#00c3ff]/20 hover:border-[#00c3ff]/40 hover:shadow-[0_0_30px_rgba(0,195,255,0.15)]",
-  both: "border-[#00ff88]/15 hover:border-[#00ff88]/30 hover:shadow-[0_0_40px_rgba(0,255,136,0.1),0_0_30px_rgba(0,195,255,0.1)]",
+  yellow:
+    "border-[#facc15]/40 hover:border-[#facc15]/70 hover:shadow-[0_0_40px_rgba(250,204,21,0.28)]",
   none: "border-slate-700/30",
 };
 
 export function GlassCard({
   children,
   className = "",
-  glow = "both",
+  glow = "yellow",
   hover = true,
 }: GlassCardProps) {
   return (

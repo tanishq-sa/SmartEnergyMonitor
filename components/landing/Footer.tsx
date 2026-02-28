@@ -29,29 +29,7 @@ export function Footer() {
               SmartEnergy Monitor
             </span>
           </motion.div>
-
-          {/* Social links */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex items-center gap-4"
-          >
-            {socialLinks.map(({ icon: Icon, href, label }) => (
-              <Link
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="w-10 h-10 rounded-full glass border border-slate-700/50 flex items-center justify-center text-slate-400 hover:text-[#facc15] hover:border-[#facc15]/40 transition-all duration-300"
-              >
-                <Icon className="w-4 h-4" />
-              </Link>
-            ))}
-          </motion.div>
         </div>
-
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
