@@ -43,7 +43,7 @@ const chartOptions = {
       bodyColor: "#e2e8f0",
       borderColor: "rgba(0, 255, 136, 0.25)",
       borderWidth: 1,
-      titleFont: { size: 14, weight: "600" },
+      titleFont: { size: 14, weight: "bold" as const },
       bodyFont: { size: 13 },
     },
   },
@@ -62,9 +62,10 @@ const chartOptions = {
 
 type EnergyChartsProps = {
   entries: EnergyEntry[];
+  unitPrice?: number;
 };
 
-export default function EnergyCharts({ entries }: EnergyChartsProps) {
+export default function EnergyCharts({ entries, unitPrice }: EnergyChartsProps) {
   // Aggregate by date so each day appears once (sum units for same date)
   const byDate = new Map<string, number>();
   for (const e of entries) {
@@ -88,13 +89,13 @@ export default function EnergyCharts({ entries }: EnergyChartsProps) {
       {
         label: "Daily consumption",
         data: values,
-        borderColor: "#00ff88",
-        backgroundColor: "rgba(0, 255, 136, 0.10)",
+        borderColor: "#facc15",
+        backgroundColor: "rgba(250, 204, 21, 0.12)",
         fill: true,
         tension: 0.3,
         pointRadius: 2,
         pointHoverRadius: 4,
-        pointBackgroundColor: "#00ff88",
+        pointBackgroundColor: "#facc15",
       },
     ],
   };
@@ -144,7 +145,7 @@ export default function EnergyCharts({ entries }: EnergyChartsProps) {
 
   const total = calculateTotal(entries);
   const avg = calculateAverage(entries);
-  const projected = projectedMonthlyBill(entries);
+  const projected = projectedMonthlyBill(entries, unitPrice);
 
   return (
     <div className="space-y-8">
@@ -153,19 +154,19 @@ export default function EnergyCharts({ entries }: EnergyChartsProps) {
           Summary
         </h3>
         <div className="grid gap-4 sm:grid-cols-3">
-          <div className="glass rounded-[20px] border border-slate-700/30 p-6 hover:border-[#00ff88]/30 hover:shadow-[0_0_40px_rgba(0,255,136,0.08)] transition-all duration-300">
+          <div className="glass rounded-[20px] border border-slate-700/30 p-6 hover:border-[#facc15]/40 hover:shadow-[0_0_40px_rgba(250,204,21,0.24)] transition-all duration-300">
             <p className="text-sm font-semibold uppercase tracking-wider text-slate-500">Total units</p>
             <p className="mt-2 text-3xl font-bold tracking-tight text-slate-50">
               {total.toFixed(1)}
             </p>
           </div>
-          <div className="glass rounded-[20px] border border-slate-700/30 p-6 hover:border-[#00ff88]/30 hover:shadow-[0_0_40px_rgba(0,255,136,0.08)] transition-all duration-300">
+          <div className="glass rounded-[20px] border border-slate-700/30 p-6 hover:border-[#facc15]/40 hover:shadow-[0_0_40px_rgba(250,204,21,0.24)] transition-all duration-300">
             <p className="text-sm font-semibold uppercase tracking-wider text-slate-500">Avg per day</p>
             <p className="mt-2 text-3xl font-bold tracking-tight text-slate-50">
               {avg.toFixed(1)}
             </p>
           </div>
-          <div className="glass rounded-[20px] border border-slate-700/30 p-6 hover:border-[#00ff88]/30 hover:shadow-[0_0_40px_rgba(0,255,136,0.08)] transition-all duration-300">
+          <div className="glass rounded-[20px] border border-slate-700/30 p-6 hover:border-[#facc15]/40 hover:shadow-[0_0_40px_rgba(250,204,21,0.24)] transition-all duration-300">
             <p className="text-sm font-semibold uppercase tracking-wider text-slate-500">Projected monthly bill</p>
             <p className="mt-2 text-3xl font-bold tracking-tight text-slate-50">
               ₹{projected}

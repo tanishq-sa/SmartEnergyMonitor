@@ -11,7 +11,7 @@ const stats = [
     value: 30,
     suffix: "%",
     label: "Energy Savings",
-    color: "text-[#00ff88]",
+    color: "text-[#facc15]",
   },
   {
     icon: Cpu,
@@ -25,7 +25,7 @@ const stats = [
     value: 99.9,
     suffix: "%",
     label: "Accuracy",
-    color: "text-[#00ff88]",
+    color: "text-[#facc15]",
   },
 ];
 
@@ -91,7 +91,7 @@ export function Statistics() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.15 }}
-              className="glass rounded-[20px] border border-slate-700/30 p-8 text-center hover:border-[#00ff88]/30 hover:shadow-[0_0_40px_rgba(0,255,136,0.1)] transition-all duration-300"
+              className="glass rounded-[20px] border border-slate-700/30 p-8 text-center hover:border-[#facc15]/40 hover:shadow-[0_0_40px_rgba(250,204,21,0.24)] transition-all duration-300"
             >
               <Icon
                 className={`w-12 h-12 mx-auto mb-4 ${stat.color}`}

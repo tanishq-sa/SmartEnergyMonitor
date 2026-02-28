@@ -1,6 +1,7 @@
+import { DEFAULT_THRESHOLD, DEFAULT_UNIT_PRICE } from "@/lib/analytics";
+
 const COLLECTION = "energyEntries";
 const SETTINGS_COLLECTION = "userSettings";
-const DEFAULT_THRESHOLD = 50;
 
 async function getFirestoreDb() {
   const { getApps, initializeApp, cert } = await import("firebase-admin/app");
@@ -65,17 +66,22 @@ export async function addEntryForUser(
 
 export type UserSettings = {
   threshold: number;
+  unitPrice: number;
 };
 
 export async function getSettingsForUser(userId: string): Promise<UserSettings> {
   const db = await getFirestoreDb();
   const doc = await db.collection(SETTINGS_COLLECTION).doc(userId).get();
   if (!doc.exists) {
-    return { threshold: DEFAULT_THRESHOLD };
+    return { threshold: DEFAULT_THRESHOLD, unitPrice: DEFAULT_UNIT_PRICE };
   }
   const data = doc.data()!;
   return {
     threshold: typeof data.threshold === "number" ? data.threshold : DEFAULT_THRESHOLD,
+    unitPrice:
+      typeof data.unitPrice === "number" && data.unitPrice > 0
+        ? data.unitPrice
+        : DEFAULT_UNIT_PRICE,
   };
 }
 

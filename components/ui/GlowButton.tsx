@@ -16,8 +16,10 @@ interface GlowButtonProps {
 }
 
 const variants = {
-  primary: "bg-[#00ff88] text-[#0f172a] hover:shadow-[0_0_40px_rgba(0,255,136,0.5)] border-[#00ff88]/50",
-  secondary: "border border-[#00c3ff]/50 text-[#00c3ff] hover:bg-[#00c3ff]/10 hover:shadow-[0_0_30px_rgba(0,195,255,0.3)]",
+  primary:
+    "bg-[#facc15] text-[#0f172a] hover:shadow-[0_0_40px_rgba(250,204,21,0.55)] border-[#facc15]/60",
+  secondary:
+    "border border-[#f97316]/60 text-[#fed7aa] hover:bg-[#f97316]/15 hover:shadow-[0_0_30px_rgba(249,115,22,0.35)]",
   ghost: "border border-slate-600/50 text-slate-300 hover:border-slate-500 hover:bg-slate-800/30",
 };
 

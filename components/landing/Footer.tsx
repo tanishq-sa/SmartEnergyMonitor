@@ -22,7 +22,7 @@ export function Footer() {
             viewport={{ once: true }}
             className="flex items-center gap-2"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00ff88] to-[#00c3ff] flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#facc15] to-[#f97316] flex items-center justify-center">
               <Zap className="w-5 h-5 text-[#0f172a]" />
             </div>
             <span className="text-lg font-semibold text-slate-50">
@@ -44,7 +44,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-10 h-10 rounded-full glass border border-slate-700/50 flex items-center justify-center text-slate-400 hover:text-[#00ff88] hover:border-[#00ff88]/30 transition-all duration-300"
+                className="w-10 h-10 rounded-full glass border border-slate-700/50 flex items-center justify-center text-slate-400 hover:text-[#facc15] hover:border-[#facc15]/40 transition-all duration-300"
               >
                 <Icon className="w-4 h-4" />
               </Link>

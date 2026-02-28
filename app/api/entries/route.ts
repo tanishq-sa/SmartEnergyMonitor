@@ -43,21 +43,52 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { date, units } = body as { date?: string; units?: number };
-
-    if (!date || typeof units !== "number" || units <= 0) {
-      return NextResponse.json(
-        { error: "Invalid body: date (string) and units (number > 0) required" },
-        { status: 400 }
+    // Support single entry or bulk array for CSV import
+    if (Array.isArray(body)) {
+      const items = body as { date?: string; units?: number }[];
+      if (items.length === 0) {
+        return NextResponse.json(
+          { error: "Array body must contain at least one item" },
+          { status: 400 }
+        );
+      }
+      for (const item of items) {
+        if (!item.date || typeof item.units !== "number" || item.units <= 0) {
+          return NextResponse.json(
+            {
+              error:
+                "Invalid item in array: each needs date (string) and units (number > 0)",
+            },
+            { status: 400 }
+          );
+        }
+      }
+      const saved = await Promise.all(
+        items.map((item) =>
+          addEntryForUser(userId, {
+            date: String(item.date),
+            units: Number(item.units),
+          })
+        )
       );
+      return NextResponse.json(saved);
+    } else {
+      const { date, units } = body as { date?: string; units?: number };
+
+      if (!date || typeof units !== "number" || units <= 0) {
+        return NextResponse.json(
+          { error: "Invalid body: date (string) and units (number > 0) required" },
+          { status: 400 }
+        );
+      }
+
+      const entry = await addEntryForUser(userId, {
+        date: String(date),
+        units: Number(units),
+      });
+
+      return NextResponse.json(entry);
     }
-
-    const entry = await addEntryForUser(userId, {
-      date: String(date),
-      units: Number(units),
-    });
-
-    return NextResponse.json(entry);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     if (

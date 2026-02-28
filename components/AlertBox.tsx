@@ -13,17 +13,17 @@ export default function AlertBox({
 }: AlertBoxProps) {
   const styles =
     variant === "warning"
-      ? "glass border border-amber-400/20"
+      ? "glass border border-amber-300/40"
       : variant === "success"
-        ? "glass border border-[#00ff88]/20"
-        : "glass border border-[#00c3ff]/20";
+        ? "glass border border-[#facc15]/40"
+        : "glass border border-slate-600/40";
 
   const accent =
     variant === "warning"
-      ? "bg-amber-400/80"
+      ? "bg-amber-300/90"
       : variant === "success"
-        ? "bg-[#00ff88]/80"
-        : "bg-[#00c3ff]/80";
+        ? "bg-[#facc15]/90"
+        : "bg-slate-400/80";
 
   return (
     <div

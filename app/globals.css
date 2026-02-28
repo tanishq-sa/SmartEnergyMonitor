@@ -69,8 +69,9 @@ body {
 }
 
 .glass-border {
-  border: 1px solid rgba(0, 255, 136, 0.2);
-  box-shadow: var(--shadow-glow-green), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(250, 204, 21, 0.35); /* yellow-400 */
+  box-shadow: 0 0 40px rgba(250, 204, 21, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 /* ============================================
@@ -81,7 +82,7 @@ body {
   --clerk-color-input: rgba(15, 23, 42, 0.8);
   --clerk-color-input-foreground: #f8fafc;
   --clerk-color-foreground: #f8fafc;
-  --clerk-color-primary: #00ff88;
+  --clerk-color-primary: #facc15; /* yellow */
   --clerk-color-primary-foreground: #0f172a;
-  --clerk-color-border: rgba(0, 255, 136, 0.2);
+  --clerk-color-border: rgba(250, 204, 21, 0.35);
 }
