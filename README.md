@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Smart Energy Monitor
 
-## Getting Started
+Minimalist monochrome app to track energy usage, view breakdowns, and get threshold alerts. Built with Next.js (App Router), Clerk, TailwindCSS, and Chart.js.
 
-First, run the development server:
+## Features
+
+- **Auth** – Sign in / sign up via Clerk (optional: app works in demo mode without keys)
+- **Data entry** – Add date + units consumed
+- **Dashboard** – Line chart (daily consumption), bar chart (weekly total), stats (total, avg/day, projected monthly bill)
+- **Threshold alerts** – Alerts when any entry exceeds 50 units
+- **Trend comparison** – “Usage Increasing” or “Usage Improving” when last 3 vs previous 3 entries differ by >20%
+- **Anomaly detection** – Spike (day > 1.5× average) and “Consistent Rise” (3 consecutive increases)
+- **Firebase Firestore** – Energy entries are stored per account (Clerk user ID); data persists across sessions.
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). Without Clerk keys, use **Dashboard** for demo mode (no auth).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `.env.example` to `.env.local` and fill in:
 
-## Learn More
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Clerk publishable key ([dashboard.clerk.com](https://dashboard.clerk.com)) |
+| `CLERK_SECRET_KEY` | Clerk secret key |
+| Firebase client (optional) | `NEXT_PUBLIC_FIREBASE_*` – web app config from Firebase Console → Project Settings |
+| **Firebase server** (for saving data) | See **Firebase service account** below |
 
-To learn more about Next.js, take a look at the following resources:
+**Auth (Clerk):** Sign in/sign up and **Dashboard** will be protected.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Data (Firebase):** The API needs a **Firebase service account key** (not the web app config). Set **one** of:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Option A – Key file (recommended):**  
+  1. [Firebase Console](https://console.firebase.google.com) → your project → **Project settings** (gear) → **Service accounts**.  
+  2. Click **Generate new private key**. Save the JSON file (e.g. as `firebase-service-account.json` in the project root).  
+  3. In `.env` or `.env.local` add:  
+     `GOOGLE_APPLICATION_CREDENTIALS=./firebase-service-account.json`  
+  4. Restart the dev server (`npm run dev`).
 
-## Deploy on Vercel
+- **Option B – JSON in env:**  
+  1. Same steps 1–2 as above.  
+  2. Minify the JSON to one line and set in `.env.local`:  
+     `FIREBASE_SERVICE_ACCOUNT_JSON={"type":"service_account","project_id":"...",...}`  
+  (Escape double quotes inside the value or use a tool to minify.)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Use `.env` or `.env.local` in the project root; restart the server after changing env. You may need to create a Firestore composite index (Firebase will show a link in the error on first use) for `energyEntries` with `userId` (Ascending) and `date` (Ascending).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Routes
+
+| Route        | Description                    |
+| ------------ | ------------------------------ |
+| `/`          | Landing (sign in/up or dashboard link) |
+| `/dashboard` | Protected dashboard (charts, form, alerts) |
+| `/sign-in`   | Clerk sign-in                  |
+| `/sign-up`   | Clerk sign-up                  |
+
+## Tech stack
+
+- **Next.js 16** (App Router)
+- **Clerk** – Auth
+- **Firebase (Firestore)** – Persist energy entries per user
+- **TailwindCSS** – Styling (black/white/gray theme)
+- **Chart.js + react-chartjs-2** – Line and bar charts
+
+Data is stored in Firebase Firestore per account (user). Projected monthly bill uses rate = ₹6/unit.
