@@ -37,25 +37,35 @@ const chartOptions = {
   maintainAspectRatio: false,
   plugins: {
     legend: { display: false },
+    tooltip: {
+      backgroundColor: "rgba(15, 23, 42, 0.95)",
+      titleColor: "#f8fafc",
+      bodyColor: "#e2e8f0",
+      borderColor: "rgba(0, 255, 136, 0.25)",
+      borderWidth: 1,
+      titleFont: { size: 14, weight: "bold" as const },
+      bodyFont: { size: 13 },
+    },
   },
   scales: {
     x: {
-      grid: { color: "rgba(75, 85, 99, 0.2)" },
-      ticks: { color: "#9ca3af" },
+      grid: { color: "rgba(148, 163, 184, 0.12)" },
+      ticks: { color: "#94a3b8", font: { size: 12 } },
     },
     y: {
       min: 0,
-      grid: { color: "rgba(75, 85, 99, 0.2)" },
-      ticks: { color: "#9ca3af" },
+      grid: { color: "rgba(148, 163, 184, 0.12)" },
+      ticks: { color: "#94a3b8", font: { size: 12 } },
     },
   },
 };
 
 type EnergyChartsProps = {
   entries: EnergyEntry[];
+  unitPrice?: number;
 };
 
-export default function EnergyCharts({ entries }: EnergyChartsProps) {
+export default function EnergyCharts({ entries, unitPrice }: EnergyChartsProps) {
   // Aggregate by date so each day appears once (sum units for same date)
   const byDate = new Map<string, number>();
   for (const e of entries) {
@@ -79,10 +89,13 @@ export default function EnergyCharts({ entries }: EnergyChartsProps) {
       {
         label: "Daily consumption",
         data: values,
-        borderColor: "#e5e7eb",
-        backgroundColor: "rgba(229, 231, 235, 0.1)",
+        borderColor: "#facc15",
+        backgroundColor: "rgba(250, 204, 21, 0.12)",
         fill: true,
         tension: 0.3,
+        pointRadius: 2,
+        pointHoverRadius: 4,
+        pointBackgroundColor: "#facc15",
       },
     ],
   };
@@ -122,39 +135,40 @@ export default function EnergyCharts({ entries }: EnergyChartsProps) {
       {
         label: "Weekly total",
         data: weeklyBuckets.map((w) => w.total),
-        backgroundColor: "rgba(156, 163, 175, 0.6)",
-        borderColor: "#9ca3af",
+        backgroundColor: "rgba(0, 195, 255, 0.25)",
+        borderColor: "rgba(0, 195, 255, 0.55)",
         borderWidth: 1,
+        borderRadius: 10,
       },
     ],
   };
 
   const total = calculateTotal(entries);
   const avg = calculateAverage(entries);
-  const projected = projectedMonthlyBill(entries);
+  const projected = projectedMonthlyBill(entries, unitPrice);
 
   return (
     <div className="space-y-8">
       <section>
-        <h3 className="mb-4 text-xs font-medium uppercase tracking-wider text-gray-500">
+        <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500">
           Summary
         </h3>
         <div className="grid gap-4 sm:grid-cols-3">
-          <div className="rounded-xl border border-gray-800/90 bg-gray-900/40 p-5 shadow-lg shadow-black/10 ring-1 ring-white/5 transition hover:border-gray-700/80">
-            <p className="text-xs font-medium uppercase tracking-wider text-gray-500">Total units</p>
-            <p className="mt-2 text-2xl font-semibold tracking-tight text-white">
+          <div className="glass rounded-[20px] border border-slate-700/30 p-6 hover:border-[#facc15]/40 hover:shadow-[0_0_40px_rgba(250,204,21,0.24)] transition-all duration-300">
+            <p className="text-sm font-semibold uppercase tracking-wider text-slate-500">Total units</p>
+            <p className="mt-2 text-3xl font-bold tracking-tight text-slate-50">
               {total.toFixed(1)}
             </p>
           </div>
-          <div className="rounded-xl border border-gray-800/90 bg-gray-900/40 p-5 shadow-lg shadow-black/10 ring-1 ring-white/5 transition hover:border-gray-700/80">
-            <p className="text-xs font-medium uppercase tracking-wider text-gray-500">Avg per day</p>
-            <p className="mt-2 text-2xl font-semibold tracking-tight text-white">
+          <div className="glass rounded-[20px] border border-slate-700/30 p-6 hover:border-[#facc15]/40 hover:shadow-[0_0_40px_rgba(250,204,21,0.24)] transition-all duration-300">
+            <p className="text-sm font-semibold uppercase tracking-wider text-slate-500">Avg per day</p>
+            <p className="mt-2 text-3xl font-bold tracking-tight text-slate-50">
               {avg.toFixed(1)}
             </p>
           </div>
-          <div className="rounded-xl border border-gray-800/90 bg-gray-900/40 p-5 shadow-lg shadow-black/10 ring-1 ring-white/5 transition hover:border-gray-700/80">
-            <p className="text-xs font-medium uppercase tracking-wider text-gray-500">Projected monthly bill</p>
-            <p className="mt-2 text-2xl font-semibold tracking-tight text-white">
+          <div className="glass rounded-[20px] border border-slate-700/30 p-6 hover:border-[#facc15]/40 hover:shadow-[0_0_40px_rgba(250,204,21,0.24)] transition-all duration-300">
+            <p className="text-sm font-semibold uppercase tracking-wider text-slate-500">Projected monthly bill</p>
+            <p className="mt-2 text-3xl font-bold tracking-tight text-slate-50">
               ₹{projected}
             </p>
           </div>
@@ -162,15 +176,15 @@ export default function EnergyCharts({ entries }: EnergyChartsProps) {
       </section>
 
       <section>
-        <h3 className="mb-4 text-xs font-medium uppercase tracking-wider text-gray-500">
+        <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500">
           Daily consumption
         </h3>
-        <div className="rounded-xl border border-gray-800/90 bg-gray-900/40 p-5 shadow-lg shadow-black/10 ring-1 ring-white/5 transition hover:border-gray-700/80">
+        <div className="glass rounded-[20px] border border-slate-700/30 p-6 hover:border-[#00ff88]/30 hover:shadow-[0_0_40px_rgba(0,255,136,0.08)] transition-all duration-300">
           <div className="h-72">
             {entries.length > 0 ? (
               <Line data={lineData} options={chartOptions} />
             ) : (
-              <div className="flex h-full items-center justify-center rounded-lg border border-dashed border-gray-700 text-sm text-gray-500">
+              <div className="flex h-full items-center justify-center rounded-xl border border-dashed border-slate-700/60 text-base text-slate-500">
                 Add entries to see the line chart
               </div>
             )}
@@ -179,15 +193,15 @@ export default function EnergyCharts({ entries }: EnergyChartsProps) {
       </section>
 
       <section>
-        <h3 className="mb-4 text-xs font-medium uppercase tracking-wider text-gray-500">
+        <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500">
           Weekly total
         </h3>
-        <div className="rounded-xl border border-gray-800/90 bg-gray-900/40 p-5 shadow-lg shadow-black/10 ring-1 ring-white/5 transition hover:border-gray-700/80">
+        <div className="glass rounded-[20px] border border-slate-700/30 p-6 hover:border-[#00ff88]/30 hover:shadow-[0_0_40px_rgba(0,255,136,0.08)] transition-all duration-300">
           <div className="h-72">
             {entries.length > 0 ? (
               <Bar data={barData} options={chartOptions} />
             ) : (
-              <div className="flex h-full items-center justify-center rounded-lg border border-dashed border-gray-700 text-sm text-gray-500">
+              <div className="flex h-full items-center justify-center rounded-xl border border-dashed border-slate-700/60 text-base text-slate-500">
                 Add entries to see the bar chart
               </div>
             )}

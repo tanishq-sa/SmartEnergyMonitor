@@ -1,51 +1,88 @@
 @import "tailwindcss";
 
+/* ============================================
+   DESIGN TOKENS - Premium SaaS Energy Monitor
+   ============================================ */
+
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  /* Core palette */
+  --bg-dark: #0f172a;
+  --bg-card: rgba(15, 23, 42, 0.6);
+  --neon-green: #00ff88;
+  --electric-blue: #00c3ff;
+  --neon-green-dim: rgba(0, 255, 136, 0.3);
+  --electric-blue-dim: rgba(0, 195, 255, 0.3);
+
+  /* Typography */
+  --font-sans: var(--font-poppins), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  /* Spacing - 8px system */
+  --space-1: 0.5rem;   /* 8px */
+  --space-2: 1rem;     /* 16px */
+  --space-3: 1.5rem;   /* 24px */
+  --space-4: 2rem;     /* 32px */
+  --space-5: 2.5rem;   /* 40px */
+  --space-6: 3rem;     /* 48px */
+  --space-8: 4rem;     /* 64px */
+  --space-10: 5rem;    /* 80px */
+  --space-12: 6rem;    /* 96px */
+
+  /* Border radius */
+  --radius: 1.25rem;   /* 20px */
+  --radius-sm: 0.75rem; /* 12px */
+  --radius-full: 9999px;
+
+  /* Shadows & glow */
+  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.25);
+  --shadow-glow-green: 0 0 40px rgba(0, 255, 136, 0.3);
+  --shadow-glow-blue: 0 0 40px rgba(0, 195, 255, 0.3);
+  --shadow-glow-combined: 0 0 60px rgba(0, 255, 136, 0.2), 0 0 40px rgba(0, 195, 255, 0.2);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--bg-dark);
+  --color-foreground: var(--text-primary);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg-dark);
+  color: var(--text-primary);
   font-family: var(--font-sans);
+  overflow-x: hidden;
 }
 
-/* Clerk auth pages: ensure variables for dark theme */
+/* ============================================
+   GLASSMORPHISM UTILITY
+   ============================================ */
+.glass {
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.glass-border {
+  border: 1px solid rgba(250, 204, 21, 0.35); /* yellow-400 */
+  box-shadow: 0 0 40px rgba(250, 204, 21, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================
+   CLERK AUTH - Premium dark theme overrides
+   ============================================ */
 .clerk-auth-page {
-  --clerk-color-background: #000;
-  --clerk-color-input: #171717;
-  --clerk-color-input-foreground: #fff;
-  --clerk-color-foreground: #e5e7eb;
-  --clerk-color-primary: #fff;
-  --clerk-color-primary-foreground: #000;
-  --clerk-color-border: #374151;
-}
-
-/* Social provider buttons (Google, GitHub, Apple): light bg so dark icons (e.g. GitHub) are visible */
-.clerk-auth-page button[type="button"],
-.clerk-auth-page a[role="button"] {
-  background: #f3f4f6 !important;
-  color: #111827 !important;
-  border: 1px solid #d1d5db !important;
-}
-
-.clerk-auth-page button[type="button"]:hover,
-.clerk-auth-page a[role="button"]:hover {
-  background: #e5e7eb !important;
-  border-color: #9ca3af !important;
-}
-
-.clerk-auth-page button[type="button"] span,
-.clerk-auth-page button[type="button"] svg,
-.clerk-auth-page a[role="button"] span,
-.clerk-auth-page a[role="button"] svg {
-  color: #111827 !important;
-  fill: #111827 !important;
+  --clerk-color-background: transparent;
+  --clerk-color-input: rgba(15, 23, 42, 0.8);
+  --clerk-color-input-foreground: #f8fafc;
+  --clerk-color-foreground: #f8fafc;
+  --clerk-color-primary: #facc15; /* yellow */
+  --clerk-color-primary-foreground: #0f172a;
+  --clerk-color-border: rgba(250, 204, 21, 0.35);
 }

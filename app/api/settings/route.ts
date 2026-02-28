@@ -37,7 +37,10 @@ export async function PATCH(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     const body = await request.json();
-    const { threshold } = body as { threshold?: number };
+    const { threshold, unitPrice } = body as {
+      threshold?: number;
+      unitPrice?: number;
+    };
     if (threshold !== undefined) {
       if (typeof threshold !== "number" || threshold < 1 || threshold > 10000) {
         return NextResponse.json(
@@ -46,7 +49,15 @@ export async function PATCH(request: Request) {
         );
       }
     }
-    const settings = await setSettingsForUser(userId, { threshold });
+    if (unitPrice !== undefined) {
+      if (typeof unitPrice !== "number" || unitPrice <= 0 || unitPrice > 100000) {
+        return NextResponse.json(
+          { error: "unitPrice must be a positive number (₹ per unit)" },
+          { status: 400 }
+        );
+      }
+    }
+    const settings = await setSettingsForUser(userId, { threshold, unitPrice });
     return NextResponse.json(settings);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);

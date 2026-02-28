@@ -13,18 +13,26 @@ export default function AlertBox({
 }: AlertBoxProps) {
   const styles =
     variant === "warning"
-      ? "border-l-4 border-l-amber-500/80 border border-gray-800/90 bg-amber-950/20"
+      ? "glass border border-amber-300/40"
       : variant === "success"
-        ? "border-l-4 border-l-emerald-500/80 border border-gray-800/90 bg-emerald-950/20"
-        : "border-l-4 border-l-gray-500/80 border border-gray-800/90 bg-gray-900/40";
+        ? "glass border border-[#facc15]/40"
+        : "glass border border-slate-600/40";
+
+  const accent =
+    variant === "warning"
+      ? "bg-amber-300/90"
+      : variant === "success"
+        ? "bg-[#facc15]/90"
+        : "bg-slate-400/80";
 
   return (
     <div
-      className={`rounded-xl px-4 py-3.5 shadow-sm ring-1 ring-white/5 transition hover:shadow-md ${styles}`}
+      className={`relative overflow-hidden rounded-[20px] px-4 py-3.5 shadow-sm transition hover:shadow-[0_0_30px_rgba(0,255,136,0.08)] ${styles}`}
     >
-      <p className="text-sm font-medium text-gray-200">{message}</p>
+      <span className={`absolute left-0 top-0 h-full w-1.5 ${accent}`} />
+      <p className="pl-2 text-base font-semibold text-slate-100">{message}</p>
       {reason && (
-        <p className="mt-2 text-xs leading-relaxed text-gray-400">{reason}</p>
+        <p className="mt-2 pl-2 text-sm leading-relaxed text-slate-400">{reason}</p>
       )}
     </div>
   );
