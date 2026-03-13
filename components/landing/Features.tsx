@@ -16,28 +16,28 @@ const features = [
     title: "Real-time Monitoring",
     description:
       "Track energy consumption live across all your devices. Instant updates and detailed breakdowns.",
-    glow: "yellow" as const,
+    glow: "purple" as const,
   },
   {
     icon: Brain,
     title: "AI Energy Insights",
     description:
       "Get intelligent recommendations to reduce usage. Anomaly detection and smart alerts.",
-    glow: "yellow" as const,
+    glow: "blue" as const,
   },
   {
     icon: DollarSign,
     title: "Cost Tracking",
     description:
       "Monitor your energy spend in real-time. Set budgets and get notified when thresholds are exceeded.",
-    glow: "yellow" as const,
+    glow: "green" as const,
   },
   {
     icon: Leaf,
     title: "Carbon Footprint Analytics",
     description:
       "Measure your environmental impact. Track CO2 savings and contribute to sustainability goals.",
-    glow: "yellow" as const,
+    glow: "purple" as const,
   },
 ];
 
@@ -53,7 +53,7 @@ export function Features() {
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-50">
             Everything you need to{" "}
-            <span className="bg-gradient-to-r from-[#facc15] to-[#f97316] bg-clip-text text-transparent">
+            <span className="gradient-text">
               save energy
             </span>
           </h2>
@@ -82,9 +82,22 @@ function FeatureCard({
   icon: LucideIcon;
   title: string;
   description: string;
-  glow: "yellow";
+  glow: "purple" | "blue" | "green";
   index: number;
 }) {
+  const getIconColors = (glowType: string) => {
+    switch (glowType) {
+      case "purple":
+        return "bg-[#a855f7]/12 text-[#a855f7] border-[#a855f7]/40";
+      case "blue":
+        return "bg-[#00c3ff]/12 text-[#00c3ff] border-[#00c3ff]/40";
+      case "green":
+        return "bg-[#00ff88]/12 text-[#00ff88] border-[#00ff88]/40";
+      default:
+        return "bg-[#facc15]/12 text-[#facc15] border-[#facc15]/40";
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -95,7 +108,7 @@ function FeatureCard({
       <GlassCard glow={glow} hover>
         <div className="flex flex-col h-full">
           <div
-            className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-[#facc15]/12 text-[#facc15] border border-[#facc15]/40"
+            className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 border ${getIconColors(glow)}`}
           >
             <Icon className="w-6 h-6" />
           </div>

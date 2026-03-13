@@ -5,13 +5,16 @@
    ============================================ */
 
 :root {
-  /* Core palette */
-  --bg-dark: #0f172a;
-  --bg-card: rgba(15, 23, 42, 0.6);
+  /* Core palette - Updated with purple accents */
+  --bg-dark: #0a0b1e;
+  --bg-card: rgba(10, 11, 30, 0.7);
   --neon-green: #00ff88;
   --electric-blue: #00c3ff;
-  --neon-green-dim: rgba(0, 255, 136, 0.3);
-  --electric-blue-dim: rgba(0, 195, 255, 0.3);
+  --neon-purple: #a855f7;
+  --neon-pink: #ec4899;
+  --neon-green-dim: rgba(0, 255, 136, 0.25);
+  --electric-blue-dim: rgba(0, 195, 255, 0.25);
+  --neon-purple-dim: rgba(168, 85, 247, 0.25);
 
   /* Typography */
   --font-sans: var(--font-poppins), "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -31,15 +34,16 @@
   --space-12: 6rem;    /* 96px */
 
   /* Border radius */
-  --radius: 1.25rem;   /* 20px */
-  --radius-sm: 0.75rem; /* 12px */
+  --radius: 1.5rem;   /* 24px */
+  --radius-sm: 1rem; /* 16px */
   --radius-full: 9999px;
 
-  /* Shadows & glow */
-  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.25);
-  --shadow-glow-green: 0 0 40px rgba(0, 255, 136, 0.3);
-  --shadow-glow-blue: 0 0 40px rgba(0, 195, 255, 0.3);
-  --shadow-glow-combined: 0 0 60px rgba(0, 255, 136, 0.2), 0 0 40px rgba(0, 195, 255, 0.2);
+  /* Shadows & glow - Enhanced */
+  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-glow-green: 0 0 50px rgba(0, 255, 136, 0.4);
+  --shadow-glow-blue: 0 0 50px rgba(0, 195, 255, 0.4);
+  --shadow-glow-purple: 0 0 50px rgba(168, 85, 247, 0.4);
+  --shadow-glow-combined: 0 0 80px rgba(0, 255, 136, 0.15), 0 0 60px rgba(0, 195, 255, 0.15), 0 0 40px rgba(168, 85, 247, 0.15);
 }
 
 @theme inline {
@@ -59,19 +63,54 @@ body {
 }
 
 /* ============================================
-   GLASSMORPHISM UTILITY
+   GLASSMORPHISM UTILITY - Enhanced
    ============================================ */
 .glass {
-  background: rgba(15, 23, 42, 0.5);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(148, 163, 184, 0.1);
+  background: rgba(10, 11, 30, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(168, 85, 247, 0.15);
+  box-shadow: var(--shadow-soft);
 }
 
 .glass-border {
-  border: 1px solid rgba(250, 204, 21, 0.35); /* yellow-400 */
-  box-shadow: 0 0 40px rgba(250, 204, 21, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  box-shadow: 0 0 50px rgba(168, 85, 247, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.glass-hover {
+  transition: all 0.3s ease;
+}
+
+.glass-hover:hover {
+  background: rgba(10, 11, 30, 0.8);
+  border-color: rgba(168, 85, 247, 0.3);
+  box-shadow: var(--shadow-glow-purple);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   ANIMATED GRADIENTS
+   ============================================ */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.gradient-text {
+  background: linear-gradient(45deg, #00ff88, #00c3ff, #a855f7, #ec4899);
+  background-size: 400% 400%;
+  animation: gradient-shift 4s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 195, 255, 0.1), rgba(168, 85, 247, 0.1));
+  background-size: 400% 400%;
+  animation: gradient-shift 6s ease infinite;
 }
 
 /* ============================================
@@ -79,10 +118,10 @@ body {
    ============================================ */
 .clerk-auth-page {
   --clerk-color-background: transparent;
-  --clerk-color-input: rgba(15, 23, 42, 0.8);
+  --clerk-color-input: rgba(10, 11, 30, 0.8);
   --clerk-color-input-foreground: #f8fafc;
   --clerk-color-foreground: #f8fafc;
-  --clerk-color-primary: #facc15; /* yellow */
-  --clerk-color-primary-foreground: #0f172a;
-  --clerk-color-border: rgba(250, 204, 21, 0.35);
+  --clerk-color-primary: #a855f7; /* purple */
+  --clerk-color-primary-foreground: #ffffff;
+  --clerk-color-border: rgba(168, 85, 247, 0.4);
 }
