@@ -2,6 +2,14 @@
 
 import { motion } from "framer-motion";
 
+const particles = Array.from({ length: 20 }, (_, i) => ({
+  key: i,
+  left: `${(i * 17.3) % 100}%`,
+  top: `${(i * 29.7) % 100}%`,
+  duration: 3 + (i % 5) * 0.4,
+  delay: (i % 4) * 0.5,
+}));
+
 /** Enhanced animated grid and energy wave background with purple accents */
 export function AnimatedBackground() {
   return (
@@ -84,13 +92,13 @@ export function AnimatedBackground() {
       </svg>
 
       {/* Floating particles */}
-      {[...Array(20)].map((_, i) => (
+      {particles.map((particle) => (
         <motion.div
-          key={i}
+          key={particle.key}
           className="absolute w-1 h-1 bg-[#a855f7]/30 rounded-full"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
+            left: particle.left,
+            top: particle.top,
           }}
           animate={{
             y: [0, -20, 0],
@@ -98,28 +106,13 @@ export function AnimatedBackground() {
             scale: [0.5, 1, 0.5],
           }}
           transition={{
-            duration: 3 + Math.random() * 2,
+            duration: particle.duration,
             repeat: Infinity,
-            delay: Math.random() * 2,
+            delay: particle.delay,
             ease: "easeInOut",
           }}
         />
       ))}
-    </div>
-  );
-}
-          transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.path
-          d="M0,400 Q400,300 800,400 T1600,400"
-          fill="none"
-          stroke="#f97316"
-          strokeWidth="1"
-          strokeDasharray="8 8"
-          animate={{ strokeDashoffset: [24, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-        />
-      </svg>
     </div>
   );
 }

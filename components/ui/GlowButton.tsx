@@ -29,6 +29,9 @@ const sizes = {
   lg: "h-14 px-8 text-lg gap-3",
 };
 
+const MotionButton = motion.button;
+const MotionLink = motion(Link);
+
 export function GlowButton({
   children,
   href,
@@ -47,9 +50,6 @@ export function GlowButton({
       {children}
     </>
   );
-
-  const MotionButton = motion.button;
-  const MotionLink = motion(Link);
 
   if (href) {
     return (

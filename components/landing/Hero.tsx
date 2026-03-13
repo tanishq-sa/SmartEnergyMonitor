@@ -44,12 +44,8 @@ export function Hero() {
           className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.1]"
         >
           <span className="text-slate-50">Monitor. </span>
-          <span className="gradient-text">
-            Optimize.
-          </span>
+          <span className="gradient-text">Optimize.</span>
           <br />
-          <span className="text-slate-50">Save Energy.</span>
-        </motion.h1>
           <span className="text-slate-50">Save Energy.</span>
         </motion.h1>
 
